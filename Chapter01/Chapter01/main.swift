@@ -15,7 +15,7 @@ let number2 = readLine()
 print("请输入操作符（+，-，*，/):")
 let operate = readLine()
 let operation = OperationFactory.createOperation(leftNum: Int(number1!)!, rightNum: Int(number2!)!, operate: operate!)
-print("\(number1!+operate!+number2!)=\(operation.result())")
+print("\(number1!+operate!+number2!)=\(operation.result(leftNum: Int(number1!)!, rightNum: Int(number2!)!))")
 
 
 //工厂模式
@@ -23,54 +23,47 @@ class OperationFactory: NSObject {
     class func createOperation(leftNum: Int, rightNum: Int, operate: String) -> Operation {
         switch operate {
         case "+":
-            return OperationAdd(leftNum: leftNum, rightNum: rightNum)
+            return OperationAdd()
         case "-":
-            return OperationSub(leftNum: leftNum, rightNum: rightNum)
+            return OperationSub()
         case "*":
-            return OperationMul(leftNum: leftNum, rightNum: rightNum)
+            return OperationMul()
         case "/":
-            return OperationDiv(leftNum: leftNum, rightNum: rightNum)
+            return OperationDiv()
         default:
             break
         }
-        return Operation(leftNum: leftNum, rightNum: rightNum)
+        return Operation()
     }
 }
 
 class Operation: NSObject {
-    let leftNum: Int
-    let rightNum: Int
-    
-    init(leftNum: Int, rightNum: Int) {
-        self.leftNum = leftNum
-        self.rightNum = rightNum
-    }
-    
-    func result() -> Int {
+
+    func result(leftNum: Int, rightNum: Int) -> Int {
         return 0
     }
 }
 
 class OperationAdd: Operation {
-    override func result() -> Int {
+    override func result(leftNum: Int, rightNum: Int) -> Int {
         return leftNum + rightNum
     }
 }
 
 class OperationSub: Operation {
-    override func result() -> Int {
+    override func result(leftNum: Int, rightNum: Int) -> Int {
         return leftNum - rightNum
     }
 }
 
 class OperationMul: Operation {
-    override func result() -> Int {
+    override func result(leftNum: Int, rightNum: Int) -> Int {
         return leftNum * rightNum
     }
 }
 
 class OperationDiv: Operation {
-    override func result() -> Int {
+    override func result(leftNum: Int, rightNum: Int) -> Int {
         return leftNum / rightNum
     }
 }
